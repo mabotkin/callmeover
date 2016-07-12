@@ -9,6 +9,7 @@ app.use(express.static('static'));
 list = [];
 
 io.on('connect', function(socket){
+	socket.emit("update",list);
 	socket.on("sendName",function(name,issue){
 		a = {
 			"name" : name,
@@ -17,13 +18,19 @@ io.on('connect', function(socket){
 			}
 		console.log("Added " + name);
 		list.push(a);
-		socket.emit("update",list);
+		io.emit("update",list);
 	});
 	socket.on("pop",function()
 	{
 		console.log("Popped");
-		list.pop();
-		socket.emit("update",list);
+		list.shift();
+		io.emit("update",list);
+	});
+	socket.on("clear",function()
+	{
+		console.log("Cleared");
+		list = [];
+		io.emit("update",list);
 	});
 });
 
