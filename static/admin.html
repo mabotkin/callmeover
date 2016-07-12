@@ -11,6 +11,10 @@
 			{
 				socket.emit("pop");
 			}
+			function clear()
+			{
+				socket.emit("clear");
+			}
 			socket.on("update", function(list){
 				var wait = document.getElementById("listing");
 				wait.innerHTML = "";
@@ -30,5 +34,6 @@
 		</ol>
 		<p id=message></p>
 		<button onclick="pop()">Pop first person of list</button>
+		<button onclick="clear()">Clear List</button>
 	</body>
 </html>
