@@ -11,8 +11,9 @@
 			{
 				socket.emit("pop");
 			}
-			function clear()
+			function clearr()
 			{
+				console.log("done");
 				socket.emit("clear");
 			}
 			socket.on("update", function(list){
@@ -34,6 +35,6 @@
 		</ol>
 		<p id=message></p>
 		<button onclick="pop()">Pop first person of list</button>
-		<button onclick="clear()">Clear List</button>
+		<button onclick="clearr()">Clear List</button>
 	</body>
 </html>
