@@ -16,6 +16,10 @@
 				console.log("done");
 				socket.emit("clear");
 			}
+			function motd()
+			{
+				socket.emit("motd",document.getElementById("motd").value);
+			}
 			socket.on("update", function(list){
 				var wait = document.getElementById("listing");
 				wait.innerHTML = "";
@@ -29,10 +33,15 @@
 					wait.appendChild(thing);
 				}
 			});
+			socket.on("newmotd",function(text)
+			{
+				document.getElementById("motd").value = text;
+			});
 		</script>
 		<h1>Call Me Over!</h1>
 		<button onclick="pop()">Pop first person of list</button>
 		<button onclick="clearr()">Clear List</button>
+		<input type=text id=motd onkeyup="motd()">
 		<ol id="listing">
 		</ol>
 		<p id=message></p>

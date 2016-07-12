@@ -7,6 +7,7 @@ var moment = require('moment');
 app.use(express.static('static'));
 
 list = [];
+message = "";
 
 io.on('connect', function(socket){
 	socket.emit("update",list);
@@ -31,6 +32,10 @@ io.on('connect', function(socket){
 		console.log("Cleared");
 		list = [];
 		io.emit("update",list);
+	});
+	socket.on("motd",function(motd)
+	{
+		socket.broadcast.emit("newmotd",motd);
 	});
 });
 
