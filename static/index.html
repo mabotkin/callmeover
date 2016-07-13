@@ -3,9 +3,12 @@
 		<title>Call Me Over!</title>
 		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script src="http://momentjs.com/downloads/moment.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<script src="jquery.storageapi.min.js"></script>
 	</head>
 	<body>
 		<script>
+			storage=$.localStorage
 			var socket = io();
 			var timeout = 0;
 			function sendName()
@@ -14,12 +17,41 @@
 				if(name)
 				{
 					var issue = document.getElementById("issue").value;
-					document.getElementById("but").disabled = true;
+
 					timeout = 30;
+
+					/*
+					document.getElementById("but").disabled = true;
 					document.getElementById("but").innerHTML = "Disabled for " + timeout + " seconds";
-					var timer = setInterval(function(){timeout--;document.getElementById("but").innerHTML = "Disabled for " + timeout + " seconds";},1000);
-					setTimeout(function(){document.getElementById("but").disabled=false;document.getElementById("but").innerHTML = "Add Name to List";clearInterval(timer)},timeout*1000);
-					socket.emit("sendName",name,issue);
+
+					var timer = setInterval(
+						function(){
+							timeout--;
+							document.getElementById("but").innerHTML = "Disabled for " + timeout + " seconds";
+						},1000);
+					
+					setTimeout(
+						function(){
+							document.getElementById("but").disabled=false;
+							document.getElementById("but").innerHTML = "Add Name to List";
+							clearInterval(timer)
+						}, timeout*1000);
+					*/
+					if(storage.isEmpty('lastTimeSet'))
+					{
+						storage.set('lastTimeSet', 0)
+					}
+					var timeDif = (new Date().getTime()) - storage.get('lastTimeSet')
+					if( timeDif >= timeout*1000)
+					{
+						alert("sent")
+						storage.set('lastTimeSet', (new Date().getTime()))
+						socket.emit("sendName",name,issue);
+					}
+					else
+					{
+						alert("Disabled for another " + (timeout*1000 - timeDif)/1000 + " seconds")
+					}
 				}
 				else
 				{
@@ -44,15 +76,15 @@
 			});
 		</script>
 		<h1>Call Me Over!</h1>
-		<p id=motd></p>
-		<input type=text id=name>
-		<select id=issue>
-			<option value="lab" selected=selected>Lab Checkoff</option>
+		<p id="motd"></p>
+		<input type="text" id="name">
+		<select id="issue">
+			<option value="lab" selected="selected">Lab Checkoff</option>
 			<option value="question">Question</option>
 		</select>
-		<button id=but onclick="sendName()">Add Name to List</button>
+		<button id="but" onclick="sendName()">Add Name to List</button>
 		<ol id="listing">
 		</ol>
-		<p id=message></p>
+		<p id="message"></p>
 	</body>
 </html>
