@@ -44,7 +44,6 @@
 					var timeDif = (new Date().getTime()) - storage.get('lastTimeSet')
 					if( timeDif >= timeout*1000)
 					{
-						alert("sent")
 						storage.set('lastTimeSet', (new Date().getTime()))
 						socket.emit("sendName",name,issue);
 					}

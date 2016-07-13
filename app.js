@@ -11,6 +11,7 @@ message = "";
 
 io.on('connect', function(socket){
 	socket.emit("update",list);
+	socket.emit("newmotd",message);
 	socket.on("sendName",function(name,issue){
 		a = {
 			"name" : name,
@@ -35,6 +36,7 @@ io.on('connect', function(socket){
 	});
 	socket.on("motd",function(motd)
 	{
+		message = motd;
 		socket.broadcast.emit("newmotd",motd);
 	});
 });
