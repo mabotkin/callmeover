@@ -69,7 +69,7 @@
 					var mes = "";
 					if(list[i].message)
 					{
-						mes = "   MESSAGE: " + list[i].message;
+						mes = "   RESPONSE: " + list[i].message;
 					}
 					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")" + mes));
 					wait.appendChild(thing);

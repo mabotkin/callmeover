@@ -34,7 +34,7 @@
 				for(var i = 0;i<list.length;i++)
 				{
 					var thing = document.createElement('li');
-					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")"));
+					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")    RESPONSE: "));
 					var mes = document.createElement("input");
 					mes.type='text';
 					mes.id='mes'+i;
