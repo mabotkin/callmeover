@@ -16,7 +16,8 @@ io.on('connect', function(socket){
 		a = {
 			"name" : name,
 			"time" : moment(),
-			"issue": issue
+			"issue": issue,
+			"message": ""
 			}
 		console.log("Added " + name);
 		list.push(a);
@@ -38,6 +39,11 @@ io.on('connect', function(socket){
 	{
 		message = motd;
 		socket.broadcast.emit("newmotd",motd);
+	});
+	socket.on("newmes",function(newmes)
+	{
+		list[newmes.ind].message = newmes.mes;
+		socket.broadcast.emit("update",list);
 	});
 });
 

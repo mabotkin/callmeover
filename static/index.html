@@ -66,7 +66,12 @@
 				for(var i = 0;i<list.length;i++)
 				{
 					var thing = document.createElement('li');
-					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")"));
+					var mes = "";
+					if(list[i].message)
+					{
+						mes = "   MESSAGE: " + list[i].message;
+					}
+					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")" + mes));
 					wait.appendChild(thing);
 				}
 			});

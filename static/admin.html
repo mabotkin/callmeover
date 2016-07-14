@@ -20,6 +20,11 @@
 			{
 				socket.emit("motd",document.getElementById("motd").value);
 			}
+			function mess(ind)
+			{
+				var newmes = document.getElementById("mes"+ind).value;
+				socket.emit("newmes",{"mes":newmes,"ind":ind});
+			}
 			socket.on("update", function(list){
 				var wait = document.getElementById("listing");
 				wait.innerHTML = "";
@@ -30,6 +35,16 @@
 				{
 					var thing = document.createElement('li');
 					thing.appendChild(document.createTextNode(list[i].name + " @ " + moment(list[i].time).format("h:mm A ddd") + " (" + list[i].issue + ")"));
+					var mes = document.createElement("input");
+					mes.type='text';
+					mes.id='mes'+i;
+					var tmpfunc = function(i)
+					{
+						mes.onkeyup=function(){mess(i)};
+					};
+					tmpfunc(i);
+					mes.value = list[i].message;
+					thing.appendChild(mes);
 					wait.appendChild(thing);
 				}
 			});
