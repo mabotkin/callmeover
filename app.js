@@ -3,6 +3,16 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var moment = require('moment');
+var dotenv = require("dotenv").config();
+var auth = require('http-auth');
+
+var basic = auth.basic({
+	realm: "Web."
+	}, function (username, password, callback) { // Custom authentication method.
+		callback(username == process.env.USER && password == process.env.PASS);
+});
+
+app.get("/admin.html",auth.connect(basic));
 
 app.use(express.static('static'));
 

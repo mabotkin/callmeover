@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/mabotkin/callmeover#readme",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "http-auth": "^2.4.4",
     "moment": "^2.14.1",
     "socketio": "^1.0.0"
   }
