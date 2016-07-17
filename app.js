@@ -9,10 +9,12 @@ var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Web."
 	}, function (username, password, callback) { // Custom authentication method.
-		callback(username == process.env.USER && password == process.env.PASS);
+		callback(username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS);
 });
 
-app.get("/admin.html",auth.connect(basic));
+app.get("/admin.html",auth.connect(basic),function(req,res){
+	res.sendFile(__dirname + "/static/admin.html");
+});
 
 app.use(express.static('static'));
 
