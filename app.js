@@ -9,6 +9,10 @@ var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Web."
 	}, function (username, password, callback) { // Custom authentication method.
+		if(!(username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS))
+		{
+			console.log("Incorrect admin login: Username: " + username + " Password: " + password);
+		}
 		callback(username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS);
 });
 
