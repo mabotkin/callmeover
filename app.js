@@ -16,7 +16,7 @@ var basic = auth.basic({
 		callback(username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS);
 });
 
-app.get("/admin.html",auth.connect(basic),function(req,res){
+app.get("/admin",auth.connect(basic),function(req,res){
 	res.sendFile(__dirname + "/static/admin.html");
 });
 
